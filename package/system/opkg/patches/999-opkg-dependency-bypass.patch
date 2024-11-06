@@ -1,0 +1,31 @@
+diff -ruN a/libopkg/opkg_install.c b/libopkg/opkg_install.c
+--- a/libopkg/opkg_install.c	2024-10-16 17:13:16.000000000 +0800
++++ b/libopkg/opkg_install.c	2024-11-06 23:13:32.042830218 +0800
+@@ -52,6 +52,7 @@
+ 							   &unresolved, 0);
+ 
+ 	if (unresolved) {
++		goto bypass;
+ 		opkg_msg(ERROR,
+ 			 "Cannot satisfy the following dependencies for %s:\n",
+ 			 pkg->name);
+@@ -78,6 +79,7 @@
+ 		}
+ 	}
+ 
++bypass:
+ 	if (ndepends <= 0) {
+ 		pkg_vec_free(depends);
+ 		return 0;
+diff -ruN a/libopkg/pkg_hash.c b/libopkg/pkg_hash.c
+--- a/libopkg/pkg_hash.c	2024-10-16 17:13:16.000000000 +0800
++++ b/libopkg/pkg_hash.c	2024-11-06 22:51:25.322507477 +0800
+@@ -258,6 +258,7 @@
+ 	pkg_vec_t *depends;
+ 	int res = 0;
+ 
++	return res;
+ 	depends = pkg_vec_alloc();
+ 	pkg_hash_fetch_unsatisfied_dependencies(maybe, depends, &unresolved, 1);
+ 
+
