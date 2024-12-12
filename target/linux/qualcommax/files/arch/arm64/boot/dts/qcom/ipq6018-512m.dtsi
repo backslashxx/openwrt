@@ -5,3 +5,7 @@
 &q6_region {
 	reg = <0x0 0x4ab00000 0x0 0x3700000>;
 };
+
+&wifi {
+	qcom,ath11k-fw-memory-mode = <1>;
+};
